@@ -1,0 +1,44 @@
+@*
+ * This template is called from the `index` template. This template
+ * handles the rendering of the page header and body tags. It takes
+ * two arguments, a `String` for the title of the page and an `Html`
+ * object to insert into the body of the page.
+ *@
+
+@(title: String)(content: Html)(implicit session: Session)
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>@title</title>
+
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("lib/material-design-lite/material.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("lib/material-design-icons/iconfont/material-icons.css")">
+
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/login.css")">
+        <script src="@routes.Assets.versioned("lib/material-design-lite/material.js")" type="text/javascript"></script>
+    </head>
+    <body style="background-color: rgba(255,255,255, 0.8); color: black;">
+        <div class="mdl-layout mdl-js-layout">
+            <header class="mdl-layout__header mdl-layout__header--scroll">
+                <div class="mdl-layout__header-row">
+                        <!-- Title -->
+                    <span class="mdl-layout-title">@title</span>
+                        <!-- Add spacer, to align navigation to the right -->
+                    <div class="mdl-layout-spacer"></div>
+                        <!-- Navigation -->
+                    <nav class="mdl-navigation">
+                        <a class="mdl-navigation__link" href="">@session.get("user_name")</a>
+                        @if(session.get("users_id")) {
+                            <a class="mdl-navigation__link" href="logout">Выйти</a>
+                        }
+                    </nav>
+                </div>
+            </header>
+            <main class="mdl-layout__content">
+                <div class="page-content">@content</div>
+            </main>
+        </div>
+    </body>
+</html>

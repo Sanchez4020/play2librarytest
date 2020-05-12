@@ -1,0 +1,46 @@
+@(bookFormData: BookFormData = BookFormData(0, "", "", ""), formAction: String)(implicit request: RequestHeader, session: Session)
+
+@main("Книга") {
+    <div class="login-card-wide mdl-card mdl-shadow--2dp">
+        <form method="post" action="@formAction" enctype="multipart/form-data" >
+            <div class="mdl-card__title">
+                <h4 class="mdl-card__title-text">
+                    @if(bookFormData.id > 0) {
+                        <span>Книга (ISN: @bookFormData.id)</span>
+                    } else {
+                        <span>Добавить книгу</span>
+                    }
+                </h4>
+            </div>
+            <div class="mdl-card__supporting-text">
+                <div class="login-simple-form-wrapper">
+                    <div class="center mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
+                        <input class="mdl-textfield__input" type="text" id="name" name="name" value="@bookFormData.name" required>
+                        <label class="mdl-textfield__label" for="name">Наименование</label>
+                    </div>
+
+                    <div class="center mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
+                        <input class="mdl-textfield__input" type="text" id="author" name="author" value="@bookFormData.author" required>
+                        <label class="mdl-textfield__label" for="name">Автор</label>
+                    </div>
+
+                    <div class="center mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <textarea class="mdl-textfield__input" type="text" rows= "3" id="content" name="content" >@bookFormData.content</textarea>
+                            <label class="mdl-textfield__label" for="content">Описание...</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mdl-card__actions mdl-card--border center">
+                @if(bookFormData.id > 0) {
+                    <input type="submit" name="update" value="Обновить" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                    <input type="hidden" name="id" value="@bookFormData.id">
+                } else {
+                    <input type="submit" name="add" value="Добавить" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                    <input type="hidden" name="id" value="@bookFormData.id">
+                }
+            </div>
+        </form>
+    </div>
+}

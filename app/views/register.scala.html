@@ -1,0 +1,40 @@
+@(registerFormData: RegisterFormData = RegisterFormData("", "", "", ""), message: String = "")(implicit request: RequestHeader, session: Session)
+
+@main("Регистрация") {
+    <div class="login-card-wide mdl-card mdl-shadow--2dp">
+        <form method="post" action="/registerUser">
+            <div class="mdl-card__title">
+                @if(message) {
+                    <h4 class="mdl-card__title-text">@message</h4>
+                }
+            </div>
+            <div class="mdl-card__supporting-text">
+                <div class="login-simple-form-wrapper">
+
+                    <div class="center mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
+                        <input class="mdl-textfield__input" type="text" id="name" name="name" value="@registerFormData.name" required>
+                        <label class="mdl-textfield__label" for="name">Имя</label>
+                    </div>
+
+                    <div class="center mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
+                        <input class="mdl-textfield__input" type="text" id="email" name="email" value="@registerFormData.email" required>
+                        <label class="mdl-textfield__label" for="login">Email</label>
+                    </div>
+                    <div class="center mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
+                        <input class="mdl-textfield__input" type="password" id="pass" name="password" required>
+                        <label class="mdl-textfield__label" for="pass">Пароль</label>
+                    </div>
+
+                    <div class="center mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
+                        <input class="mdl-textfield__input" type="password" id="repeat_pass" name="repeat_password" required>
+                        <label class="mdl-textfield__label" for="repeat_pass">Повторите пароль</label>
+                    </div>
+
+                </div>
+            </div>
+            <div class="mdl-card__actions mdl-card--border center">
+                <input type="submit" name="login" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+            </div>
+        </form>
+    </div>
+}

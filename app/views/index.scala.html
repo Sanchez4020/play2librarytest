@@ -1,0 +1,62 @@
+@(books : Seq[models.Book] = Seq.empty[Book])(implicit request: RequestHeader, session: Session)
+    @main("Мои книги") {
+        <div class="center">
+            @if(books.isEmpty) {
+                <h1 class="center">Книги отстуствуют :(</h1>
+                <div class="full-width-flex-row-center-start-block">
+                    <a class="center mdl-button mdl-js-button mdl-button--raised mdl-button mdl-button--colored" href="@routes.BooksController.addNewBook">
+                        Добавить книгу
+                    </a>
+                </div>
+            } else {
+                <form action="@routes.BooksController.deleteBooks" method="post">
+                    <div class="books-table-buttons full-width-flex-row-center-start-block">
+                        <a class="center mdl-button mdl-js-button mdl-button--raised mdl-button mdl-button--colored" href="@routes.BooksController.addNewBook" >
+                            Добавить книгу
+                        </a>
+                        <input type="submit" class="center mdl-button mdl-js-button mdl-button--raised mdl-button--accent delete-book-button delete-book-button--hidden" name="delete_books" value="Удалить выбранные">
+                    </div>
+
+                    <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp center">
+                        <thead>
+                            <tr>
+                                <th class="mdl-data-table__cell--non-numeric">
+                                    ISN
+                                </th>
+                                <th class="mdl-data-table__cell--non-numeric">
+                                    Наименование
+                                </th>
+                                <th class="mdl-data-table__cell--non-numeric">
+                                    Автор
+                                </th>
+                                <th class="mdl-data-table__cell--non-numeric">
+                                    Описание
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @for(book <- books) {
+                            <tr data-id="@book.id">
+                                <td class="mdl-data-table__cell--non-numeric">
+                                @book.id
+                                </td>
+                                <td class="mdl-data-table__cell--non-numeric">
+                                    <a href="@routes.BooksController.showBook(book.id)">
+                                    @book.name
+                                    </a>
+                                </td>
+                                <td class="mdl-data-table__cell--non-numeric">
+                                @book.author
+                                </td>
+                                <td class="mdl-data-table__cell--non-numeric description-td" title="@book.content">
+                                @book.content
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </form>
+            }
+        </div>
+        <script src="@routes.Assets.versioned("/javascripts/books.js")" type="text/javascript"></script>
+    }

@@ -1,0 +1,13 @@
+@(test_var: String, test_number: Int = 0, action: String)(implicit session: Session)
+
+@main(test_var) {
+    <div class="test_class" style="background-color: red; color: white;">
+        <form action="@action" method="get">
+            <input type="text" name="number" value="@test_number">
+            <input type="submit" class="submit" name="add" value="Add">
+        </form>
+    </div>
+}
+
+
+
